@@ -121,11 +121,16 @@ export namespace SafeIntegerFormat {
     }
 
     const resolvedOptions = Options.resolve(options);
+    const isNegative = int < 0;
     let str = int.toString(resolvedOptions.radix);
-    if (resolvedOptions.lowerCase === true) {
+    if (isNegative === true) {
+      str = str.substring(1);
+    }
+    if (resolvedOptions.lowerCase !== true) {
       str = str.toUpperCase();
     }
     str = str.padStart(resolvedOptions.minIntegralDigits, "0");
-    return `${resolvedOptions.prefix}${str}${resolvedOptions.suffix}`;
+    const sign = (isNegative === true) ? "-" : "";
+    return `${resolvedOptions.prefix}${sign}${str}${resolvedOptions.suffix}`;
   }
 }
