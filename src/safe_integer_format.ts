@@ -21,6 +21,7 @@ export namespace SafeIntegerFormat {
     radix?: Radix;
     minIntegralDigits?: SafeInteger;
     lowerCase?: boolean;
+    //TODO useGrouping, groupSeparator, positiveSign, negativeSign, ...
     prefix?: string;
     suffix?: string;
   };
