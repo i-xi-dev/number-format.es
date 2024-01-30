@@ -1,4 +1,4 @@
-import { Radix, SafeInteger, StringEx } from "../deps.ts";
+import { NumberEx, Radix, SafeInteger, StringEx } from "../deps.ts";
 
 function _resolveRadix(radix: unknown): Radix {
   if (Object.values(Radix).includes(radix as Radix)) {
@@ -53,16 +53,16 @@ export namespace SafeIntegerFormat {
       let regex;
       switch (radix) {
         case Radix.BINARY:
-          regex = /^[01]+$/;
+          regex = /^[-+]?[01]+$/;
           break;
         case Radix.OCTAL:
-          regex = /^[0-7]+$/;
+          regex = /^[-+]?[0-7]+$/;
           break;
         case Radix.DECIMAL:
-          regex = /^[0-9]+$/;
+          regex = /^[-+]?[0-9]+$/;
           break;
         case Radix.HEXADECIMAL:
-          regex = /^[0-9A-F]+$/i;
+          regex = /^[-+]?[0-9A-F]+$/i;
           break;
       }
 
@@ -109,7 +109,7 @@ export namespace SafeIntegerFormat {
 
     const int = Number.parseInt(work, resolvedOptions.radix);
     if (Number.isSafeInteger(int)) {
-      return int;
+      return NumberEx.normalizeNumber(int);
     }
     throw new RangeError("str");
   }
